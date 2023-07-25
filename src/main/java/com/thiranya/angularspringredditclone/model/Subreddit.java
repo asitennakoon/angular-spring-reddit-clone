@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 import java.util.List;
@@ -20,10 +21,10 @@ public class Subreddit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Community name is required")
+    @NotBlank(message = "Community name is required")
     private String name;
 
-    @NotEmpty(message = "Description name is required")
+    @NotBlank(message = "Description is required")
     private String description;
 
     private Instant createdDate;

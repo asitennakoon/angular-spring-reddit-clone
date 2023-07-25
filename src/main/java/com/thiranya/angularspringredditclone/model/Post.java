@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
@@ -20,7 +21,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;
 
-    @NotEmpty(message = "Post Name cannot be empty or null")
+    @NotBlank(message = "Post Name cannot be empty or Null")
     private String postName;
 
     @Nullable
