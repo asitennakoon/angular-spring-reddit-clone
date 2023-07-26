@@ -2,18 +2,14 @@ package com.thiranya.angularspringredditclone.model;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "E1780_POSTS")
 @Data
 @Builder
 public class Post {

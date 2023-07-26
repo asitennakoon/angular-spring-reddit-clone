@@ -1,16 +1,12 @@
 package com.thiranya.angularspringredditclone.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Entity
-@Table(name = "token")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "E1780_TOKENS")
 @Data
 public class VerificationToken {
     @Id

@@ -1,16 +1,13 @@
 package com.thiranya.angularspringredditclone.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "E1780_VOTES")
 @Data
 @Builder
 public class Vote {

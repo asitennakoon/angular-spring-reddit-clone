@@ -1,20 +1,14 @@
 package com.thiranya.angularspringredditclone.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "E1780_USERS")
 @Data
 public class User {
     @Id
