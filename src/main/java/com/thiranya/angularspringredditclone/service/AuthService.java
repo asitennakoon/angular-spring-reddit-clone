@@ -1,5 +1,7 @@
 package com.thiranya.angularspringredditclone.service;
 
+import com.thiranya.angularspringredditclone.dto.AuthenticationResponse;
+import com.thiranya.angularspringredditclone.dto.LoginRequest;
 import com.thiranya.angularspringredditclone.dto.RegisterRequest;
 import com.thiranya.angularspringredditclone.exception.RedditException;
 import com.thiranya.angularspringredditclone.model.NotificationEmail;
@@ -7,9 +9,14 @@ import com.thiranya.angularspringredditclone.model.User;
 import com.thiranya.angularspringredditclone.model.VerificationToken;
 import com.thiranya.angularspringredditclone.repository.UserRepository;
 import com.thiranya.angularspringredditclone.repository.VerificationTokenRepository;
+import com.thiranya.angularspringredditclone.util.JwtProvider;
 import com.thiranya.angularspringredditclone.util.MailContentBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,9 +35,11 @@ public class AuthService {
     private MailContentBuilder mailContentBuilder;
     private MessageSource messageSource;
     private MailService mailService;
+    private AuthenticationManager authenticationManager;
+    private JwtProvider jwtProvider;
 
     @Transactional
-    public void signup(RegisterRequest registerRequest) {
+    public void register(RegisterRequest registerRequest) {
         User user = new User();
 
         user.setUsername(registerRequest.getUsername());
@@ -80,5 +89,16 @@ public class AuthService {
                 .orElseThrow(() -> new RedditException("User Not Found with username - " + username));
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
+                = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String authenticationToken = jwtProvider.generateToken(authentication);
+
+        return new AuthenticationResponse(authenticationToken, loginRequest.getUsername());
     }
 }

@@ -1,5 +1,7 @@
 package com.thiranya.angularspringredditclone.controller;
 
+import com.thiranya.angularspringredditclone.dto.AuthenticationResponse;
+import com.thiranya.angularspringredditclone.dto.LoginRequest;
 import com.thiranya.angularspringredditclone.dto.RegisterRequest;
 import com.thiranya.angularspringredditclone.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -14,9 +16,9 @@ import static org.springframework.http.HttpStatus.OK;
 public class AuthController {
     private AuthService authService;
 
-    @PostMapping("signup")
-    public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        authService.signup(registerRequest);
+    @PostMapping("register")
+    public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
+        authService.register(registerRequest);
         return new ResponseEntity<>("User Registration Successful", OK);
     }
 
@@ -24,5 +26,10 @@ public class AuthController {
     public ResponseEntity<String> verifyToken(@PathVariable String token) {
         authService.verifyToken(token);
         return new ResponseEntity<>("Account Activation Successful", OK);
+    }
+
+    @PostMapping("login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }

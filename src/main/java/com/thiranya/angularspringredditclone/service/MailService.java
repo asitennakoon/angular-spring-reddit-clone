@@ -30,7 +30,7 @@ public class MailService {
         };
         try {
             mailSender.send(messagePreparator);
-            log.info("Activation email sent!!");
+            log.info("Activation email sent");
         } catch (MailException e) {
             throw new RedditException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
         }
