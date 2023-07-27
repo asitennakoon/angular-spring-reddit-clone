@@ -1,6 +1,8 @@
 package com.thiranya.angularspringredditclone.config;
 
 import com.thiranya.angularspringredditclone.security.JwtAuthenticationFilter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
+@SecurityScheme(
+        name = "Bearer Authentication",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JWT",
+        scheme = "bearer",
+        description = "A JWT token is required to access this API. JWT token can be obtained by providing correct username and password to the Login operation of the Auth API."
+)
 @AllArgsConstructor
 public class SecurityConfig {
     private UserDetailsService userDetailsService;
