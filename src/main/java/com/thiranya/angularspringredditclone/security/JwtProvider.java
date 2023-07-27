@@ -1,19 +1,22 @@
-package com.thiranya.angularspringredditclone.util;
+package com.thiranya.angularspringredditclone.security;
 
 import com.thiranya.angularspringredditclone.exception.RedditException;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
 
-@Component
+import static io.jsonwebtoken.Jwts.parser;
+
+@Service
 public class JwtProvider {
     private KeyStore keyStore;
     @Value("${reddit.keystore.password}")
@@ -44,6 +47,28 @@ public class JwtProvider {
             return (PrivateKey) keyStore.getKey("redditKey", keyStorePassword.toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new RedditException("Exception occurred while retrieving private key from keystore");
+        }
+    }
+
+    public boolean validateToken(String jwt) {
+        parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
+        return true;
+    }
+
+    public String getUsernameFromJWT(String jwt) {
+        Claims claims = parser()
+                .setSigningKey(getPublickey())
+                .parseClaimsJws(jwt)
+                .getBody();
+
+        return claims.getSubject();
+    }
+
+    private PublicKey getPublickey() {
+        try {
+            return keyStore.getCertificate("redditKey").getPublicKey();
+        } catch (KeyStoreException e) {
+            throw new RedditException("Exception occurred while retrieving public key from keystore");
         }
     }
 }

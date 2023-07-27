@@ -9,7 +9,7 @@ import com.thiranya.angularspringredditclone.model.User;
 import com.thiranya.angularspringredditclone.model.VerificationToken;
 import com.thiranya.angularspringredditclone.repository.UserRepository;
 import com.thiranya.angularspringredditclone.repository.VerificationTokenRepository;
-import com.thiranya.angularspringredditclone.util.JwtProvider;
+import com.thiranya.angularspringredditclone.security.JwtProvider;
 import com.thiranya.angularspringredditclone.util.MailContentBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
