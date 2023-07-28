@@ -1,7 +1,6 @@
 package com.thiranya.angularspringredditclone.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "E1780_SUBREDDITS")
 @Data
-@Builder
 public class Subreddit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
