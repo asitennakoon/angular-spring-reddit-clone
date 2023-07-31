@@ -13,9 +13,9 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/subreddits")
+@RequestMapping("api/subreddits")
 @SecurityRequirement(name = "Bearer Authentication")
-@Tag(name = "Subreddit", description = "The Subreddit API. Contains all the operations that can be performed on subreddits.")
+@Tag(name = "Subreddits", description = "The Subreddits API. Contains all the operations that can be performed on subreddits.")
 @AllArgsConstructor
 public class SubredditController {
     private SubredditService subredditService;
