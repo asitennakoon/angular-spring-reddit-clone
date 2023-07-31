@@ -26,11 +26,14 @@ public class PostService {
     private UserRepository userRepository;
 
     @Transactional
-    public void save(PostDto postDto) {
+    public PostDto save(PostDto postDto) {
         Subreddit subreddit = subredditRepository.findByName(postDto.getSubredditName())
                 .orElseThrow(() -> new SubredditNotFoundException(postDto.getSubredditName()));
 
-        postRepository.save(postMapper.mapDtoToPost(postDto, subreddit));
+        Post post = postRepository.save(postMapper.mapDtoToPost(postDto, subreddit));
+
+        postDto.setPostId(post.getPostId());
+        return postDto;
     }
 
     @Transactional(readOnly = true)

@@ -19,6 +19,5 @@ public abstract class SubredditMapper {
     @InheritInverseConfiguration
     @Mapping(target = "user", expression = "java(authService.getCurrentUser())")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
-    @Mapping(target = "posts", ignore = true)
     public abstract Subreddit mapDtoToSubreddit(SubredditDto subreddit);
 }

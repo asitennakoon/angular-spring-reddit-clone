@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 @RequestMapping("api/subreddits")
 @SecurityRequirement(name = "Bearer Authentication")
@@ -22,19 +26,19 @@ public class SubredditController {
 
     @PostMapping
     @Operation(summary = "Create Subreddit", description = "Create a subreddit for a specific topic")
-    public ResponseEntity<SubredditDto> create(@RequestBody @Valid SubredditDto subredditDto) {
-        return ResponseEntity.ok(subredditService.save(subredditDto));
+    public ResponseEntity<SubredditDto> createSubreddit(@RequestBody @Valid SubredditDto subredditDto) {
+        return status(CREATED).body(subredditService.save(subredditDto));
     }
 
     @GetMapping
     @Operation(summary = "Get All Subreddits", description = "See all the subreddits currently stored in the database")
     public ResponseEntity<List<SubredditDto>> getAllSubreddits() {
-        return ResponseEntity.ok(subredditService.getAll());
+        return status(OK).body(subredditService.getAll());
     }
 
     @GetMapping("{id}")
     @Operation(summary = "Get Subreddit", description = "Get the subreddit with the provided ID")
     public ResponseEntity<SubredditDto> getSubreddit(@PathVariable Long id) {
-        return ResponseEntity.ok(subredditService.getSubreddit(id));
+        return status(OK).body(subredditService.getSubreddit(id));
     }
 }

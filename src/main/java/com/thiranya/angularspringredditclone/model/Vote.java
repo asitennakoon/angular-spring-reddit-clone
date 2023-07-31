@@ -1,7 +1,6 @@
 package com.thiranya.angularspringredditclone.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "E1780_VOTES")
 @Data
-@Builder
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
