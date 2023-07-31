@@ -11,13 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 @AllArgsConstructor
 public class SubredditService {
     private SubredditRepository subredditRepository;
-    private AuthService authService;
     private SubredditMapper subredditMapper;
 
     @Transactional
@@ -32,7 +29,7 @@ public class SubredditService {
         return subredditRepository.findAll()
                 .stream()
                 .map(subredditMapper::mapSubredditToDto)
-                .collect(toList());
+                .toList();
     }
 
     @Transactional(readOnly = true)
@@ -41,12 +38,4 @@ public class SubredditService {
                 .orElseThrow(() -> new SubredditNotFoundException("Subreddit not found with id - " + id));
         return subredditMapper.mapSubredditToDto(subreddit);
     }
-
-/*    private Subreddit mapToSubreddit(SubredditDto subredditDto) {
-        return Subreddit.builder().name("/r/" + subredditDto.getName())
-                .description(subredditDto.getDescription())
-                .user(authService.getCurrentUser())
-                .createdDate(now())
-                .build();
-    }*/
 }
