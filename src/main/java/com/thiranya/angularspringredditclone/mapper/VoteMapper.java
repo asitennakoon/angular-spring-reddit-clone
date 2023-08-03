@@ -13,6 +13,6 @@ public abstract class VoteMapper {
     @Mapping(target = "post", source = "post")
     public abstract Vote mapDtoToVote(VoteDto voteDto, User user, Post post);
 
-    @Mapping(target = "postId", expression = "java(post.getPostId())")
+    @Mapping(target = "postId", expression = "java(vote.getPost().getPostId())")
     public abstract VoteDto mapVoteToDto(Vote vote);
 }
